@@ -4,6 +4,15 @@
 
 <h2>🛠️ Installation Steps:</h2>
 
+<p>0. install vim-plug: https://github.com/junegunn/vim-plug</p>
+
+if you are on LINUX you can use this command 
+```
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```
+<br>
+
 <p>1. copy this commands in your shell</p>
 
 ```
@@ -13,6 +22,7 @@ mv .vimrc .vimrc_before_prox
 cp ./proxvimrc/.vimrc .
 rm -rf proxvimrc
 ```
+<br>
 
 <p>2. enter vim and execute this command</p>
 
