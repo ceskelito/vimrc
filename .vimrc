@@ -55,7 +55,7 @@ set softtabstop=4    " Imposta la larghezza del tab per l'autoindentazione a 4 s
 set background=dark         " Imposta il background scuro
 set termguicolors           " Usa i colori a 24 bit
 set showcmd                 " Mostra il comando in corso di digitazione
-"set cursorline              " Evidenzia la riga corrente
+set cursorline              " Evidenzia la riga corrente
 set wildmenu                " Menu a discesa per completamento
 
 
