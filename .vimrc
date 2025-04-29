@@ -73,4 +73,7 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
-
+"use alt+v to split the files
+nnoremap <Esc>v :vsplit<CR> 
+"use space instead of enter in nerdtreeles
+autocmd FileType nerdtree nmap <buffer> <Space> <CR>
