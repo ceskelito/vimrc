@@ -1,9 +1,9 @@
 call plug#begin('~/.vim/plugged')
 
 " ADD PLUGINS YOU LIKE
-Plug 'preservim/nerdtree'      " lateral File explorer
-Plug 'tpope/vim-fugitive'       " Git integration
-Plug 'morhetz/gruvbox'     " Tema gruvbox (scuro)
+Plug 'preservim/nerdtree'      " Lateral file explorer
+Plug 'tpope/vim-fugitive'      " Git integration
+Plug 'morhetz/gruvbox'         " Gruvbox theme (dark)
 "Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 "Plug 'ycm-core/YouCompleteMe'
@@ -15,65 +15,67 @@ Plug 'justinmk/vim-sneak'
 
 call plug#end()
 
-" Imposta il tema gruvbox
+" Set the Gruvbox theme
 colorscheme gruvbox
-" Imposta l'anti-aliasing per i font
+" Set anti-aliasing for fonts
 set guifont=Monospace\ 12
 
+" --- Handy configurations ---
 
-" --- Configurazioni comode ---
-
-" Mappa F2 per aprire/chiudere NERDTree
+" Map F2 to open/close NERDTree
 nnoremap <F2> :NERDTreeToggle<CR>
 
-" Quando apro Vim senza file, apri NERDTree
+" When opening Vim without files, open NERDTree
 "autocmd VimEnter * if argc() == 0 | NERDTree | endif
 
-" Quando chiudo l'ultimo file, chiudi anche Vim
+" When closing the last file, also close Vim
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | quit | endif
 
-" Config base per fugitive
-" Apre lo status git con :G
+" Basic config for fugitive
+" Open git status with :G
 command! G Gstatus
-
 
 " Optional: some fancy configuration
 
-" Attiva la colorazione della sintassi
+" Enable syntax highlighting
 syntax enable
 
-" Attiva i numeri relativi per una navigazione più comoda
+" Enable relative line numbers for easier navigation
 set number
 
-" Imposta la larghezza per l'indentazione (utilizza tabulazioni, non spazi)
+" Set indentation width (use tabs, not spaces)
 set noexpandtab
-set tabstop=4        " Imposta la larghezza della tabulazione a 4 spazi
-set shiftwidth=4     " Imposta la larghezza dell'indentazione automatica a 4 spazi
-set softtabstop=4    " Imposta la larghezza del tab per l'autoindentazione a 4 spazi
+set tabstop=4        " Set tab width to 4 spaces
+set shiftwidth=4     " Set auto-indent width to 4 spaces
+set softtabstop=4    " Set tab width for auto-indentation to 4 spaces
 
-" Per un'interfaccia più moderna
-set background=dark         " Imposta il background scuro
-set termguicolors           " Usa i colori a 24 bit
-set showcmd                 " Mostra il comando in corso di digitazione
-set cursorline              " Evidenzia la riga corrente
-set wildmenu                " Menu a discesa per completamento
+" For a more modern interface
+set background=dark         " Set dark background
+set termguicolors           " Enable 24-bit color support
+set showcmd                 " Show current typed command
+set cursorline              " Highlight the current line
+set wildmenu                " Dropdown menu for command completion
 
-
-" Impedisce di creare file di swap inutili
+" Prevent creation of unnecessary swap files
 set noswapfile
 
-" Salva il file automaticamente prima di uscire
+" Automatically save file before exiting
 "autocmd BufLeave * silent! write
 
-" Apri i file divisi in verticale (split)
+" Open files with vertical splits
 set splitright
 
-" Naviga facilmente tra i file divisi
+" Easily navigate between split files
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
-"use alt+v to split the files
-nnoremap <Esc>v :vsplit<CR> 
-"use space instead of enter in nerdtreeles
+
+" Use Alt+v to split files
+nnoremap <Esc>v :vsplit<CR>
+
+" Use space instead of enter in NERDTree list
 autocmd FileType nerdtree nmap <buffer> <Space> <CR>
+
+" Automatically move the cursor to the last position it was before closing the file
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
