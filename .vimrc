@@ -12,6 +12,10 @@ Plug 'tpope/vim-commentary'
 Plug 'dense-analysis/ale'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'justinmk/vim-sneak'
+"Plug 'SirVer/ultisnips'
+"Plug 'honza/vim-snippets'
+
+
 
 call plug#end()
 
@@ -79,3 +83,53 @@ autocmd FileType nerdtree nmap <buffer> <Space> <CR>
 
 " Automatically move the cursor to the last position it was before closing the file
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+
+"let g:UltiSnipsExpandTrigger="<tab>"
+
+
+function! GenCanonical(name)
+    let l:class = a:name
+
+    " Generate Orthodox Canonical Form .hpp file
+    execute "edit " . l:class . ".hpp"
+    call setline(1, [
+    \ '#ifndef ' . toupper(l:class) . '_HPP',
+    \ '#define ' . toupper(l:class) . '_HPP',
+    \ '',
+    \ 'class ' . l:class . ' {',
+    \ 'public:',
+    \ '    ' . l:class . '();',
+    \ '    ' . l:class . '(const ' . l:class . '& other);',
+    \ '    ' . l:class . '& operator=(const ' . l:class . '& other);',
+    \ '    ~' . l:class . '();',
+    \ '',
+    \ 'private:',
+    \ '',
+    \ '};',
+    \ '',
+    \ '#endif'
+    \ ])
+
+    " Generate Orthodox Canonical Form .cpp file
+    execute "vsplit " . l:class . ".cpp"
+    call setline(1, [
+    \ '#include "' . l:class . '.hpp"',
+    \ '',
+    \ l:class . '::' . l:class . '() {}',
+    \ '',
+    \ l:class . '::' . l:class . '(const ' . l:class . '& other) { *this = other; }',
+    \ '',
+    \ l:class . '& ' . l:class . '::operator=(const ' . l:class . '& other) {',
+    \ '    if (this != &other) {',
+    \ '        // copy fields here',
+    \ '    }',
+    \ '    return *this;',
+    \ '}',
+    \ '',
+    \ l:class . '::~' . l:class . '() {}'
+    \ ])
+endfunction
+
+"Command used to generate canonical files: :canonical file-name
+command! -nargs=1 canonical call GenCanonical(<f-args>)
+
