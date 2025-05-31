@@ -131,5 +131,6 @@ function! GenCanonical(name)
 endfunction
 
 "Command used to generate canonical files: :canonical file-name
-command! -nargs=1 canonical call GenCanonical(<f-args>)
+command! -nargs=1 Canonical call GenCanonical(<f-args>)
+cabbrev canonical Canonical
 
