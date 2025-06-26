@@ -134,3 +134,19 @@ endfunction
 command! -nargs=1 Canonical call GenCanonical(<f-args>)
 cabbrev canonical Canonical
 
+"by https://github.com/Eutrius
+nnoremap ;; :buffers<CR>:let b=input('') \| :exec 'buffer '.(b == '' ? '#' : b)<CR>
+
+" Mapping: \r → prompts for what to search and what to replace
+nnoremap <Leader>r :call Replace()<CR>
+
+" Command: :ReplaceText old new → performs the substitution
+command! -nargs=+ ReplaceText execute '%s/' . <f-args> . '/g'
+
+" Function: prompts for input for the substitution
+function! Replace()
+  let old = input("Search: ")
+  let new = input("Replace with: ")
+  execute '%s/' . escape(old, '/\') . '/' . escape(new, '/\') . '/g'
+endfunction
+
