@@ -6,7 +6,6 @@ Plug 'tpope/vim-fugitive'      " Git integration
 Plug 'morhetz/gruvbox'         " Gruvbox theme (dark)
 "Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
-"Plug 'ycm-core/YouCompleteMe'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'dense-analysis/ale'
@@ -14,10 +13,28 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'justinmk/vim-sneak'
 "Plug 'SirVer/ultisnips'
 "Plug 'honza/vim-snippets'
-
-
+Plug 'iaalm/terminal-drawer.vim'	" Toggle terminal, default <C-t>
 
 call plug#end()
+
+" Add paths for include files to enable autocompletion
+set path+=**/*.h
+
+" Ignore .git directories in wildmenu completions
+set wildignore+=*/.git/*
+
+" Set up autocompletion for C and C++ files
+autocmd FileType c,cpp setlocal omnifunc=ccomplete#Complete
+
+" if use ctgas too:
+set tags=./tags;,tags;
+
+
+" Change shell in terminal drawer
+let g:terminal_drawer_shell = "zsh"
+
+" Change the binding in terminal drawer
+let g:terminal_drawer_leader = "<C-\\>"
 
 " Set the Gruvbox theme
 colorscheme gruvbox
@@ -25,6 +42,10 @@ colorscheme gruvbox
 set guifont=Monospace\ 12
 
 " --- Handy configurations ---
+
+" Map Ctrl+S to save
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>a
 
 " Map F2 to open/close NERDTree
 nnoremap <F2> :NERDTreeToggle<CR>
@@ -149,4 +170,3 @@ function! Replace()
   let new = input("Replace with: ")
   execute '%s/' . escape(old, '/\') . '/' . escape(new, '/\') . '/g'
 endfunction
-
