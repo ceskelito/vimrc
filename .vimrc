@@ -117,6 +117,8 @@ function! GenCanonical(name)
     \ '#ifndef ' . toupper(l:class) . '_HPP',
     \ '#define ' . toupper(l:class) . '_HPP',
     \ '',
+	\ '#include <iostream>',
+    \ '',
     \ 'class ' . l:class . ' {',
     \ 'public:',
     \ '    ' . l:class . '();',
@@ -132,23 +134,32 @@ function! GenCanonical(name)
     \ ])
 
     " Generate Orthodox Canonical Form .cpp file
-    execute "vsplit " . l:class . ".cpp"
-    call setline(1, [
-    \ '#include "' . l:class . '.hpp"',
-    \ '',
-    \ l:class . '::' . l:class . '() {}',
-    \ '',
-    \ l:class . '::' . l:class . '(const ' . l:class . '& other) { *this = other; }',
-    \ '',
-    \ l:class . '& ' . l:class . '::operator=(const ' . l:class . '& other) {',
-    \ '    if (this != &other) {',
-    \ '        // copy fields here',
-    \ '    }',
-    \ '    return *this;',
-    \ '}',
-    \ '',
-    \ l:class . '::~' . l:class . '() {}'
-    \ ])
+	execute "vsplit " . l:class . ".cpp"
+	call setline(1, [
+	\ '#include "' . l:class . '.hpp"',
+	\ '',
+	\ l:class . '::' . l:class . '() {',
+	\ '    std::cout << "' . l:class . ' constructed" << std::endl;',
+	\ '}',
+	\ '',
+	\ l:class . '::' . l:class . '(const ' . l:class . '& other) {',
+	\ '    std::cout << "' . l:class . ' copied" << std::endl;',
+	\ '    *this = other;',
+	\ '}',
+	\ '',
+	\ l:class . '& ' . l:class . '::operator=(const ' . l:class . '& other) {',
+	\ '    std::cout << "' . l:class . ' assigned" << std::endl;',
+	\ '    if (this != &other) {',
+	\ '        // copy fields here',
+	\ '    }',
+	\ '    return *this;',
+	\ '}',
+	\ '',
+	\ l:class . '::~' . l:class . '() {',
+	\ '    std::cout << "' . l:class . ' destructed" << std::endl;',
+	\ '}'
+	\ ])
+
 endfunction
 
 "Command used to generate canonical files: :canonical file-name
