@@ -29,9 +29,17 @@ autocmd FileType c,cpp setlocal omnifunc=ccomplete#Complete
 " if use ctgas too:
 set tags=./tags;,tags;
 
-
-" Change shell in terminal drawer
+" Change your shell. This is useful if the variable "shell" is used by too many plugins.
 let g:terminal_drawer_shell = "zsh"
+" Change the binding to another one, if you need <C-t> for other thing.
+let g:terminal_drawer_leader = "<C-s>"
+" Change the terminal postion "bottom" or "top"
+let g:terminal_drawer_position = "bottom"
+" Change the terminal size
+let g:terminal_drawer_size = 20
+" Set the shorcut to close the terminal
+tnoremap <C-K> <C-w>:q!<CR>
+
 
 " Change the binding in terminal drawer
 let g:terminal_drawer_leader = "<C-\\>"
